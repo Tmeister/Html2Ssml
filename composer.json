@@ -1,0 +1,43 @@
+{
+    "name": "tmeister/ssml",
+    "description": "SSML Converter",
+    "keywords": [
+        "tmeister",
+        "ssml"
+    ],
+    "homepage": "https://github.com/tmeister/ssml",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Enrique Chavez",
+            "email": "noone@tmeister.net",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0",
+        "symfony/var-dumper": "^4.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tmeister\\Ssml\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tmeister\\Ssml\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
