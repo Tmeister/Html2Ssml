@@ -2,7 +2,6 @@
 
 namespace Tmeister\Ssml;
 
-use DOMDocument;
 use Exception;
 
 class Html2Ssml
@@ -77,12 +76,12 @@ class Html2Ssml
         '',                                  // <head>
         '',                                  // <script>s -- which strip_tags supposedly has problems with
         '',                                  // <style>s -- which strip_tags supposedly has problems with
-        '[emphasis]_\\1_[/emphasis]',        // <i>
-        '[emphasis]_\\1_[/emphasis]',        // <em>
+        '\\1',                               // <i>
+        '[emphasis]\\1[/emphasis]',          // <em>
         "",                                  // <ul> and </ul>
         "",                                  // <ol> and </ol>
         "",                                  // <dl> and </dl>
-        "[p]\\1[/p]",                        // <li> and </li>
+        "[s]\\1[/s]",                        // <li> and </li>
         "\\1",                               // <dd> and </dd>
         "\\1",                               // <dt> and </dt>
         "",                                  // <li>
@@ -170,6 +169,32 @@ class Html2Ssml
     ];
 
     /**
+     * List of preg* regular expression patterns to search for,
+     * used in conjunction with $replace.
+     *
+     * @type array
+     */
+    protected $ssmlSearch = [
+        '/(\[)emphasis(\])/m',
+        '/(\[)\/emphasis(\])/m',
+        '/(\[)s(\])/m',
+        '/(\[)\/s(\])/m'
+    ];
+
+    /**
+     * List of preg* regular expression patterns to search for,
+     * used in conjunction with $replace.
+     *
+     * @type array
+     */
+    protected $ssmlReplace = [
+        "<emphasis>",
+        "</emphasis>",
+        "<s>",
+        "</s>",
+    ];
+
+    /**
      * Html2Ssml constructor
      *
      * @param string $html
@@ -197,7 +222,8 @@ class Html2Ssml
      */
     public function setHtml($html)
     {
-        $this->html = $html;
+        $this->html      = $html;
+        $this->converted = false;
     }
 
     /**
@@ -224,6 +250,7 @@ class Html2Ssml
         $origEncoding = mb_internal_encoding();
         mb_internal_encoding('UTF-8');
         $this->parseHtml();
+        $this->doSsmlTags();
         mb_internal_encoding($origEncoding);
     }
 
@@ -236,14 +263,14 @@ class Html2Ssml
             throw new Exception();
         }
 
-        $this->doConversion();
-
-
+        $this->doConversion($this->html);
     }
 
-    protected function doConversion()
+    /**
+     * @param $text
+     */
+    protected function doConversion($text)
     {
-        $text = $this->html;
         $text = preg_replace($this->search, $this->replace, $text);
         $text = preg_replace_callback($this->callbackSearch, [$this, 'pregCallback'], $text);
         $text = strip_tags($text);
@@ -261,9 +288,7 @@ class Html2Ssml
         $text = preg_replace("/[\n]{3,}/", "\n\n", $text);
 
         // remove leading empty lines (can be produced by eg. P tag on the beginning)
-        $text = ltrim($text);
-
-        dump(trim($text));
+        $this->ssml = trim($text);
     }
 
     /**
@@ -277,21 +302,31 @@ class Html2Ssml
     {
         switch (mb_strtolower($matches[1])) {
             case 'p':
-                $para = str_replace("\n", " ", $matches[3]);
+                $para = str_replace("\n", "", $matches[3]);
                 $para = trim($para);
 
-                return "\n[p]" . $para . "[/p]\n";
+                return "[s]" . $para . "[/s]\n";
             case 'br':
                 return "";
             case 'b':
             case 'strong':
             case 'th':
             case 'h':
-                return '[emphasis]' . $matches[3] . '[/emphasis]';
+                return "[emphasis]" . $matches[3] . "[/emphasis]\n";
             case 'a':
                 return $matches[5];
         }
 
         return '';
+    }
+
+    /**
+     *
+     */
+    protected function doSsmlTags()
+    {
+        $ssml = preg_replace($this->ssmlSearch, $this->ssmlReplace, $this->ssml);
+
+        $this->ssml = $ssml;
     }
 }

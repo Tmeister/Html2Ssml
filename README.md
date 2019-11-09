@@ -1,4 +1,4 @@
-# Very short description of the package
+# Simple HTML to SSML converter
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/tmeister/ssml.svg?style=flat-square)](https://packagist.org/packages/tmeister/ssml)
 [![Build Status](https://img.shields.io/travis/tmeister/ssml/master.svg?style=flat-square)](https://travis-ci.org/tmeister/ssml)
@@ -18,7 +18,8 @@ composer require tmeister/ssml
 ## Usage
 
 ``` php
-// Usage description here
+$html2ssml = new Html2Ssml($html);
+$ssml      = $html2ssml->getSsml();
 ```
 
 ### Testing
