@@ -12,19 +12,19 @@ This is where your description should go. Try and limit it to a paragraph or two
 You can install the package via composer:
 
 ```bash
-composer require tmeister/ssml
+composer require tmeister/html2ssml
 ```
 
 ## Usage
 
-``` php
+```php
 $html2ssml = new Html2Ssml($html);
 $ssml      = $html2ssml->getSsml();
 ```
 
 ### Testing
 
-``` bash
+```bash
 composer test
 ```
 
@@ -42,8 +42,8 @@ If you discover any security related issues, please email noone@tmeister.net ins
 
 ## Credits
 
-- [Enrique Chavez](https://github.com/tmeister)
-- [All Contributors](../../contributors)
+-   [Enrique Chavez](https://github.com/tmeister)
+-   [All Contributors](../../contributors)
 
 ## License
 
