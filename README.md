@@ -1,9 +1,9 @@
 # Simple HTML to SSML converter
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/tmeister/ssml.svg?style=flat-square)](https://packagist.org/packages/tmeister/ssml)
-[![Build Status](https://img.shields.io/travis/tmeister/ssml/master.svg?style=flat-square)](https://travis-ci.org/tmeister/ssml)
-[![Quality Score](https://img.shields.io/scrutinizer/g/tmeister/ssml.svg?style=flat-square)](https://scrutinizer-ci.com/g/tmeister/ssml)
-[![Total Downloads](https://img.shields.io/packagist/dt/tmeister/ssml.svg?style=flat-square)](https://packagist.org/packages/tmeister/ssml)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/tmeister/html2ssml.svg?style=flat-square)](https://packagist.org/packages/tmeister/html2ssml)
+[![Build Status](https://img.shields.io/travis/tmeister/html2ssml/master.svg?style=flat-square)](https://travis-ci.org/tmeister/html2ssml)
+[![Quality Score](https://img.shields.io/scrutinizer/g/tmeister/html2ssml.svg?style=flat-square)](https://scrutinizer-ci.com/g/tmeister/html2ssml)
+[![Total Downloads](https://img.shields.io/packagist/dt/tmeister/html2ssml.svg?style=flat-square)](https://packagist.org/packages/tmeister/html2ssml)
 
 This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
 
